@@ -5,7 +5,10 @@ front/dist
 
 # server
 server/config/__pycache__
-server/todo/migrations/*
+
+server/todo/migrations
+server/todo/__pycache__
+
 server/db.sqlite3
 
 # local env files
