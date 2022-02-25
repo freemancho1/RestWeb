@@ -1,9 +1,11 @@
+# front
 front/.DS_Store
 front/node_modules
 front/dist
 
-
-
+# server
+server/config/__pycache__
+server/todo/migrations/*
 
 # local env files
 .env.local
