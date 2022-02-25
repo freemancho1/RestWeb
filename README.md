@@ -1,1 +1,1 @@
-# REST API & VueJS
+# (Django)REST API & VueJS
