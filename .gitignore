@@ -6,6 +6,7 @@ front/dist
 # server
 server/config/__pycache__
 server/todo/migrations/*
+server/db.sqlite3
 
 # local env files
 .env.local
