@@ -1,5 +1,7 @@
 <template>
-<div class="view-home">
+<div class="view-home text-center">
+
+	
 
 </div>
 </template>

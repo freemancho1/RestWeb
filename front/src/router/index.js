@@ -4,7 +4,7 @@ const routes = [
   { path: '/', name: 'Home', component: () => import('../views/Home.vue') },
   { path: '/about', name: 'About', component: () => import('../views/About.vue') },
 
-  { path: '/todo', name: 'Todo', component: () => import('../views/todo/TodoList.vue') },
+  { path: '/todos', name: 'TodoList', component: () => import('../views/TodoList.vue') },
 ]
 
 const router = createRouter({

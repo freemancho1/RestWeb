@@ -1,64 +1,70 @@
 <template>
 <q-layout view="hHh lpR fFf">
-	<q-header elevated class="bg-primary text-white" height-hint="98">
+
+	<q-header class="bg-orange glossy shadow-2 text-white" height-hint="98">
+
 		<q-toolbar>
+	
 			<q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
-			<q-toolbar-title>
-				<q-avatar>
-					<img src="/img/icons/favicon-32x32.png" />
-				</q-avatar>
-				공부방
+	
+			<q-toolbar-title style="max-width: 200px;">
+				<!-- <q-avatar>
+					<img src="/favicon.ico" />
+				</q-avatar> -->
+				{{ siteMenu.title }}
 			</q-toolbar-title>
-			<q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
+
+			<!-- <q-btn dense flat round icon="menu" @click="toggleRightDrawer" /> -->
+	
+			<q-tabs align="left">
+				<q-route-tab v-for="menu in siteMenu.menus" :key="menu.id"
+					:to="menu.to" :label="menu.label" />
+			</q-tabs>
+	
 		</q-toolbar>
-		<q-tabs align="center">
-			<q-route-tab to="/" label="할일 목록" />
-			<q-route-tab to="/about" label="생각중" />
-		</q-tabs>
+
 	</q-header>
+
+	<q-drawer show-if-above v-if="isLeftDrawerOpen" side="left">
+	</q-drawer>
+	<q-drawer show-if-above v-if="isRightDrawerOpen" side="right">
+	</q-drawer>
+
+	<q-page-container class="column" style="height: 100%;">
+		<div class="col-12 row justify-center q-pa-md">
+			<router-view class="col-xs-12 col-sm-12 col-md-10 col-lg-8"/>
+		</div>
+	</q-page-container>
+
+	<q-footer class="bg-grey-3 text-grey shadow-up-2">
+		<q-toolbar>
+			<q-toolbar-title align="left">
+				Freeman's Room
+			</q-toolbar-title>
+			<q-item class="items-center">Copyright(c) 2022, Freeman</q-item>
+		</q-toolbar>
+	</q-footer>
+
 </q-layout>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
+const siteMenu = {
+	title: 'Freeman',
+	menus: [
+		{ id: 0, label: 'Home', to: '/' },
+		{ id: 1, label: 'Scheduling', to: '/todos' },
+	]
+}
+
+const isLeftDrawerOpen = ref(false)
+const isRightDrawerOpen = ref(false)
+
 const toggleLeftDrawer = () => {}
 const toggleRightDrawer = () => {}
 </script>
 
 <style lang="scss">
-html, body {
-	height: 100%;
-}
-
-#app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-	background-color: rgb(231, 230, 230);
-	height: 100%;
-}
-
-#container {
-	border-width: 0 0 0 1px;
-	border-style: solid;
-	border-color: orangered;
-	min-width: 1000px;
-	max-width: 1000px;
-	background-color: white;
-	padding: 10px;
-}
-
-#nav {
-	padding: 30px;
-
-	a {
-		font-weight: bold;
-		color: #2c3e50;
-
-		&.router-link-exact-active {
-			color: #42b983;
-		}
-	}
-}
 </style>
