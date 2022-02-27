@@ -1,8 +1,18 @@
 <template>
 <div class="my-sub-view todo-original">
 
-    <div class="text-h5 text-blue-grey text-weight-bold">
-        {{ info.title }}
+    <div class="row">
+        <div class="col-8 text-h5 text-blue-grey text-weight-bold">
+            {{ info.title }}
+        </div>
+        <div class="col-4 text-right">
+            <q-radio v-model="visibility" val="all" 
+                label="All" class="text-blue-grey" color="blue-grey"/>
+            <q-radio v-model="visibility" val="active" 
+                label="Active" class="text-blue-grey q-ml-md" color="blue-grey"/>
+            <q-radio v-model="visibility" val="completed" 
+                label="Completed" class="text-blue-grey q-ml-md" color="blue-grey"/>
+        </div>
     </div>
 
     <q-input type="text" class="q-my-md" 
@@ -16,8 +26,8 @@
         </template>
     </q-input>
 
-    <q-list v-if="todos.length" style="margin: 0 -15px 0 -15px">
-        <q-item clickable v-for="todo in todos" :key="todo.id">
+    <q-list v-if="filteredTodos.length" style="margin: 0 -15px 0 -15px">
+        <q-item clickable v-for="todo in filteredTodos" :key="todo.id">
             <q-item-section side>
                 <q-checkbox v-model="todo.is_completed"
                     checked-icon="task_alt" unchecked-icon="radio_button_unchecked"
@@ -43,7 +53,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
 const info = {
@@ -55,6 +65,13 @@ const info = {
 const inputTodo = ref('')
 const todos = ref([])
 const toggleAll = ref(false)
+const filters = {
+    all: (todos) => todos,
+    active: (todos) => todos.filter((todo) => !todo.is_completed),
+    completed: (todos) => todos.filter((todo) => todo.is_completed),
+}
+const visibility = ref('all')
+const filteredTodos = computed(() => filters[visibility.value](todos.value))
 
 function doneEdit(e) {
     if (!inputTodo.value.length) return
@@ -66,8 +83,9 @@ function doneEdit(e) {
     axios
         .post('/api/todo/', newTodo)
         .then(response => {
-            todos.value.push(response.data)
-            todos.value.sort((a, b) => b.id - a.id)
+            todos.value.unshift(response.data)
+            // todos.value.push(response.data)
+            // todos.value.sort((a, b) => b.id - a.id)
         })
         .catch(error => {
             console.log(error)
@@ -87,7 +105,7 @@ function toggleTodo(todo) {
 }
 
 function toggleTodos() {
-    todos.value.forEach((todo) => {
+    filteredTodos.value.forEach((todo) => {
         todo.is_completed = toggleAll.value
         toggleTodo(todo)
     })
@@ -126,7 +144,7 @@ onMounted(() => {
 
 <style scope>
 .todo-item div.completed {
-	color: #949494;
+    color: rgb(206, 201, 201) !important;
 	text-decoration: line-through;    
 }
 </style>
