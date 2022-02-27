@@ -37,12 +37,12 @@ import TodoOriginal from '@/components/todo/TodoOriginal.vue'
 import TodoOthers from '@/components/todo/TodoOthers.vue'
 
 const viewInfo = {
-    title: 'Modeling Scheduling',
+    title: '모델링 관리',
 }
 
 const tabs = [
-    { id: 1, name: 'Supervised', icon: 'list', component: TodoOriginal },
-    { id: 2, name: 'others', icon: 'more_horiz', component: TodoOthers },
+    { id: 1, name: '비지도학습', icon: 'list', component: TodoOriginal },
+    { id: 2, name: '기타', icon: 'more_horiz', component: TodoOthers },
 ]
 const menuTab = ref(tabs[0].name)
 

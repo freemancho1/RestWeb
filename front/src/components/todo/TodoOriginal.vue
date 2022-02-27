@@ -10,7 +10,7 @@
         :label="info.inputLabel" v-model="inputTodo" 
         @blur="doneEdit" @keyup.enter="doneEdit" @keyup.escape="cancelEdit">
         <template v-slot:before>
-            <q-checkbox v-model="toggleAll" 
+            <q-checkbox v-model="toggleAll" @click="toggleTodos"
                 checked-icon="check_box_outline_blank" unchecked-icon="apps"
                 color="blue-grey" keep-color/>
         </template>
@@ -21,10 +21,14 @@
             <q-item-section side>
                 <q-checkbox v-model="todo.is_completed"
                     checked-icon="task_alt" unchecked-icon="radio_button_unchecked"
+                    @click="toggleTodo(todo)"
                     color="orange" keep-color/>
             </q-item-section>
-            <q-item-section>
-                <div class="text-h6 text-weight-bold">{{ todo.title }}</div>
+            <q-item-section class="todo-item">
+                <div class="text-h6 text-weight-bold text-blue-grey-6"
+                    :class="{ completed: todo.is_completed }">
+                    {{ todo.title }}
+                </div>
             </q-item-section>
             <q-item-section side>
                 <q-btn flat dense round icon="delete"
@@ -55,36 +59,60 @@ const toggleAll = ref(false)
 function doneEdit(e) {
     if (!inputTodo.value.length) return
     const newTodo = {
-        id: todos.value.length + 1,
         title: inputTodo.value,
-        is_completed: false
+        memo: 'test',
     }
-    todos.value.push(newTodo)
+
+    axios
+        .post('/api/todo/', newTodo)
+        .then(response => {
+            todos.value.push(response.data)
+            todos.value.sort((a, b) => b.id - a.id)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
     e.target.focus()
     inputTodo.value = ''
-    console.log('done')
+}
+
+function toggleTodo(todo) {
+    axios 
+        .put(`/api/todo/${todo.id}/`, todo)
+        .then(response => {})
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+function toggleTodos() {
+    todos.value.forEach((todo) => {
+        todo.is_completed = toggleAll.value
+        toggleTodo(todo)
+    })
 }
 
 function cancelEdit(e) {
     inputTodo.value = ''
-    console.log('cancel')
 }
 
 function deleteTodo(todo) {
-    // console.log(`TodoOriginal.deleteTodo(todos.value.indexOf(todo)): ${todos.value.indexOf(todo)}`)
     todos.value.splice(todos.value.indexOf(todo), 1)
+    todo.is_delete = true
+    axios 
+        .put(`/api/todo/${todo.id}/`, todo)
+        .then(response => {})
+        .catch(error => {
+            console.log(error)
+        })
 }
 
 function getTodosFromServer() {
-    console.log('TodoOriginal.getTodosFromServer Start.')
     axios 
         .get('/api/todo/')
         .then(response => {
             todos.value = response.data 
-            if (!todos.value.length) todos.value = []
-            console.log(`TodoOriginal.getTodosFromServer(todos.value.length): ${todos.value.length}`)
-            console.log('TodoOriginal.getTodosFromServer(todos.value):')
-            console.log(todos.value)
         })
         .catch(error => {
             console.log(`TodoOriginal.getTodosFromServer ${error}`)
@@ -92,18 +120,13 @@ function getTodosFromServer() {
 }
 
 onMounted(() => {
-    axios 
-        .get('/api/todo/')
-        .then(response => {
-            todos.value = response.data 
-            if (!todos.value.length) todos.value = []
-            console.log(`TodoOriginal.onMounted(todos.value.length): ${todos.value.length}`)
-            console.log('TodoOriginal.onMounted(todos.value):')
-            console.log(todos.value)
-        })
-        .catch(error => {
-            console.log(`TodoOriginal.onMounted ${error}`)
-        })
-    console.log(`TodoOriginal.onMounted(todos.value.length): ${todos.value.length}`)
+    getTodosFromServer()
 })
 </script>
+
+<style scope>
+.todo-item div.completed {
+	color: #949494;
+	text-decoration: line-through;    
+}
+</style>
