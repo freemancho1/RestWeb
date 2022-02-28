@@ -65,6 +65,7 @@ const info = {
 const inputTodo = ref('')
 const todos = ref([])
 const toggleAll = ref(false)
+const isEdit = ref(false)
 const filters = {
     all: (todos) => todos,
     active: (todos) => todos.filter((todo) => !todo.is_completed),

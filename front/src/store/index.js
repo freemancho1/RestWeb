@@ -1,12 +1,14 @@
 import { createStore } from 'vuex'
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
+    state: {
+        isAuthenticated: true,
+        aif_loginToken: '',
+    },
+    mutations: {
+    },
+    actions: {
+    },
+    modules: {
+    }
 })
