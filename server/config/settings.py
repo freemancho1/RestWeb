@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     
     # Append vendor package
     'rest_framework',
+    'rest_framework.authtoken',                                 # 인증토큰
+    'djoser',                                                   # 인증작업
     'corsheaders',                                              # Append CORS
     
     # Append local app

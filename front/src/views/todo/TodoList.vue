@@ -1,7 +1,7 @@
 <template>
-<div class="my-view todo-list">
+<div class="todo-list">
 
-    <q-header height-hint="98">
+    <!-- <q-header height-hint="98">
 		<q-toolbar class="text-white">
 
             <q-btn dense flat round class="bg-white text-primary" 
@@ -12,7 +12,7 @@
 			</q-toolbar-title>
 
 		</q-toolbar>
-	</q-header>
+	</q-header> -->
 
     <q-tabs v-model="menuTab" indicator-color="blue-grey" class="text-primary">
         <q-tab v-for="tab in tabs" :key="tab.id"
