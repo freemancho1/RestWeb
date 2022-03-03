@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, watchEffect, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 // import store from '@/store'
 import { useStore } from 'vuex'
@@ -57,31 +57,64 @@ const loginState = computed(() => store.state.isAuthenticated ? 'afterLogin': 'b
 const filteredMain = computed(() => menuFilter[loginState.value](mainFilter))
 const filteredSide = computed(() => menuFilter[loginState.value](sideFilter))
 
-const menusActive = ref([])
-const lastMenuId = computed(() => store.state.lastMenuId)
+const menusActive = ref(new Array(siteMenu.menus.length))
+const lastMenuId = ref()
 
-const fillTrue = (id) => {
+onMounted(() => {
+    let menuId = localStorage.getItem('lastMenuId')
+    // console.log('onMounted1 menuId', menuId)
+    lastMenuId.value = (menuId>=0) ? menuId: 0
+
+    // lastMenuId.value = store.state.lastMenuId
+    // console.log('onMounted2', lastMenuId.value)
+})
+
+watch(lastMenuId, (curr) => {
+    // console.log('watch lastMenuId1', curr)
     menusActive.value.fill(false)
-    menusActive.value[id] = true
-    localStorage.setItem('lastMenuId', id)
-}
-function logout() {
+    menusActive.value[curr] = true
+    // console.log(menusActive.value)
+    localStorage.setItem('lastMenuId', curr)
+    router.push(siteMenu.menus[curr].to)
+    // console.log('watch lastMenuId2', curr)
+})
+
+// watchEffect(() => {
+//     // 이 함수는 onMounted보다 먼저 실행되기 때문에 watch로 수정
+//     if (!lastMenuId.value) return
+//     console.log('watchEffect', lastMenuId.value)
+//     menusActive.value.fill(false)
+//     menusActive.value[lastMenuId.value] = true
+//     localStorage.setItem('lastMenuId', lastMenuId.value)
+//     console.log('watchEffect', localStorage.getItem('lastMenuId'))
+// })
+
+const logout = () => {
+    // console.log('logout 0', lastMenuId.value)
     store.commit('removeToken')
-    fillTrue(0)
-    console.log('logout 1')
-    router.replace(siteMenu.menus[0].to)
-    console.log('logout 2')
+    // fillTrue(0)
+    lastMenuId.value = 0
+    // setMenuEffect(0)
+    // console.log('logout 1', lastMenuId.value)
+    // router.push(siteMenu.menus[0].to)
+    // router.replace(siteMenu.menus[0].to)
+    // console.log('logout 2')
+    document.location.href = siteMenu.menus[0].to
 }
 const goPathMain = (id) => {
-    fillTrue(id)
-    router.push(siteMenu.menus[id].to)
+    // fillTrue(id)
+    // store.state.lastMenuId = id
+    
+    lastMenuId.value = id
+    console.log('goPathMain', lastMenuId.value)
+    // store.commit('setLastMenuId', id)
+    // router.push(siteMenu.menus[id].to)
 }
 const goPathSide = (id) => {
     if (siteMenu.menus[id].label === 'Logout') {
         logout()
     } else {
-        fillTrue(id)
-        router.push(siteMenu.menus[id].to)
+        lastMenuId.value = id
     }
 }
 </script>
@@ -103,8 +136,8 @@ const goPathSide = (id) => {
     color: #f1f8e9;
     font-weight: bold;
     text-shadow:3px 3px 3px #795548;
-    border-bottom: 3px solid #f1f8e9;
-    border-radius: 10px;
+    border-bottom: 3px solid white;
+    border-radius: 3px;
     padding-bottom: 5px;
 }
 .aif-header span.menu {

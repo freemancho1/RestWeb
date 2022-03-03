@@ -9,6 +9,7 @@ const routes = [
     meta: { requireLogin: true }, },
 
   { path: '/auth/login', name: 'LogIn', component: () => import('../views/auth/LogIn.vue') },
+  { path: '/auth/logout', name: 'LogOut', component: () => import('../views/auth/LogOut.vue') },
 ]
 
 const router = createRouter({

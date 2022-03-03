@@ -12,12 +12,14 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import store from '@/store/index.js'
+import { onBeforeMount } from 'vue'
+import store from '@/store'
 import MainHeader from '@/components/main/MainHeader.vue'
 
-onMounted(() => {
-	console.log('App onMounted')
+// onBeforeMount를 사용하지 않고, onMounted를 사용할 경우
+// App.vue의 onMounted보다 컴포넌트인 MainHeader의 onMounted가 먼저 실행됨.
+onBeforeMount(() => {
+	console.log('App onBeforeMount')
 	store.commit('initializeStore')
 })
 </script>
