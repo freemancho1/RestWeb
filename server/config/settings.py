@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     
     # Append local app
     'todo',
-    'bbs',
+    'model',
 ]
 
 MIDDLEWARE = [

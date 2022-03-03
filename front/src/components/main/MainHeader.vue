@@ -38,13 +38,13 @@ const siteMenu = {
 	title: 'Modeling',
 	menus: [    // displayLevel: 0-항상, 1-로그인 전, 2-로그인 후
                 // type: 1-메인(왼쪽) 메뉴, 2-사이드(오른쪽) 메뉴
-        { id: 0, label: 'Home', to: '/', displayLevel: 0, type: 1 },
+        { id: 0, label: 'Home', to: '/', displayLevel: 2, type: 1 },
         { id: 1, label: 'Scheduling', to: '/todos', displayLevel: 2, type: 1 },
         { id: 2, label: 'Login', to: '/auth/login', displayLevel: 1, type: 2 },
         { id: 3, label: 'Signup', to: '/auth/signup', displayLevel: 1, type: 2 },
         { id: 4, label: 'Account', to: '/auth/account', displayLevel: 2, type: 2 },
         { id: 5, label: 'Logout', to: '/auth/logout', displayLevel: 2, type: 2 },
-        { id: 6, label: 'BBS', to: '/bbs', displayLevel: 0, type: 1 },
+        { id: 6, label: 'Model Info', to: '/model', displayLevel: 2, type: 1 },
     ]
 }
 const menuFilter = {  
@@ -137,7 +137,7 @@ const goPathSide = (id) => {
     font-weight: bold;
     text-shadow:3px 3px 3px #795548;
     border-bottom: 3px solid white;
-    border-radius: 3px;
+    border-radius: 5px;
     padding-bottom: 5px;
 }
 .aif-header span.menu {
