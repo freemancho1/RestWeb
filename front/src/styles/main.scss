@@ -1,0 +1,44 @@
+@import './config';
+
+.aip-auth {
+    margin-top: $view-margin-top;
+
+    .main-title {
+        color: $main-title-color;
+        font-size: $main-title-size;
+        font-weight: bold;
+        margin-bottom: $s-6;
+    }
+    .sub-title {
+        color: $sub-color;
+        font-size: $sub-title-size !important;
+        margin-top: $s-5;
+    }
+
+    input {
+        color: $main-color;
+        font-size: $body-text-size;
+        font-weight: bold;
+        border-bottom: 1px solid $main-color !important;
+
+        :focus {
+            background-color: rgba(250, 242, 233, 0.63) !important;
+        }
+    }
+
+    .error-notify {
+        color: $error-text-color;
+        margin-bottom: $s-3;
+    }
+    .notify {
+        color: $main-color;
+        font-size: $s-3;
+        margin-top: $s-5;
+
+        a {
+            color: $sub-text-color;
+            font-weight: bold;
+        }
+    }
+}
+

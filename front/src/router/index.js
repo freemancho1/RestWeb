@@ -12,6 +12,7 @@ const routes = [
     meta: { requireLogin: true }, },
 
   { path: '/auth/login', name: 'LogIn', component: () => import('../views/auth/LogIn.vue') },
+  { path: '/auth/signup', name: 'SignUp', component: () => import('../views/auth/SignUp.vue') },
   { path: '/auth/logout', name: 'LogOut', component: () => import('../views/auth/LogOut.vue'),
     meta: { requireLogin: true }, },
 ]
