@@ -90,7 +90,9 @@ const submit = async () => {
             // store.state.loginToken = token
             store.commit('setToken', token)
             axios.defaults.headers.common['Authorization'] = 'Token ' + token
+            console.log('login axios 1')
             const toPath = route.query.to || '/'
+            console.log('login axios 2')
             router.push(toPath)
         })
         .catch(error => {
