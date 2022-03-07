@@ -3,12 +3,12 @@
     <div class="aip-auth col-4 text-center">
         
         <div class="sub-title">AI Platform</div>
-        <div class="main-title">Login</div>
+        <div class="main-title">Log In</div>
 
         <q-input label="ID:" v-model="userInfo.username" ref="aipRefUsername"
             color="orange-8" label-color="orange-8"
             @keyup.enter="aipRefPassword.focus()"/>
-        <div v-if="errors.username" class="error-notify">
+        <div class="error-notify">
             <p v-for="error in errors.username" :key="error" class="text-left">
                 {{ error }}
             </p>
@@ -17,22 +17,20 @@
         <q-input type="password" label="Password:" v-model="userInfo.password"
             color="orange-8" label-color="orange-8"
             ref="aipRefPassword" @keyup.enter="submit"/>
-        <div v-if="errors.password" class="error-notify">
+        <div class="error-notify">
             <p v-for="error in errors.password" :key="error" class="text-left">
                 {{ error }}
             </p>
         </div>
 
-        <div v-if="errors.etc" class="error-notify">
+        <div class="error-notify">
             <p v-for="error in errors.etc" :key="error" 
                 class="text-left" v-html="error"/>
-                <!-- {{ error }} -->
-            <!-- </p> -->
         </div>
 
         <q-btn label="Login" color="orange-8" glossy @click="submit"/>
-        <div class="text-right text-orange-7 text-h7 q-mt-xl">
-            Or <a href="/sign-up">Click here</a> to sign up.
+        <div class="notify text-right">
+            Or <a @click="router.push('/auth/signup')">Click here</a> to sign up.
         </div>
 
     </div>
@@ -111,25 +109,4 @@ const submit = async () => {
 
 <style lang="scss" scope>
 @import "~@/styles/main";
-
-// .aip-login {
-//     margin-top: 30px;
-// }
-
-// .aip-login input {
-//     border-bottom: 1px solid rgb(252, 147, 10) !important;
-//     color: #f88808;
-//     font-weight: bold;
-//     font-size: 20px;
-// }
-// .aip-login input:focus {
-//     background-color: rgba(250, 242, 233, 0.63) !important;
-// }
-// .aip-login a {
-//     color: #ff4500;
-//     font-weight: bold;
-// }
-// .aip-login .error {
-//     color: green;
-// }
 </style>

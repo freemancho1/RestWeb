@@ -2,43 +2,51 @@
 
 .aip-auth {
     margin-top: $view-margin-top;
+    background-color: $view-bg-color;
 
     .main-title {
-        color: $main-title-color;
-        font-size: $main-title-size;
-        font-weight: bold;
-        margin-bottom: $s-6;
+        color: $view-title-color;
+        font-size: $view-title-size;
+        font-weight: bold; 
+        margin-bottom: $s50;
     }
     .sub-title {
-        color: $sub-color;
-        font-size: $sub-title-size !important;
-        margin-top: $s-5;
+        color: $view-sub-title-color;
+        font-size: $view-sub-title-size !important;
+        margin-top: $slg;
     }
 
     input {
-        color: $main-color;
-        font-size: $body-text-size;
+        color: $page-title-color;
+        font-size: $page-text-size;
         font-weight: bold;
-        border-bottom: 1px solid $main-color !important;
-
-        :focus {
-            background-color: rgba(250, 242, 233, 0.63) !important;
+        border-bottom: 1px solid $main-bold-color !important;
+        
+        &:focus {
+            background-color: $back-color !important;
         }
     }
 
-    .error-notify {
-        color: $error-text-color;
-        margin-bottom: $s-3;
+    button {
+        margin-top: $smd;
     }
+
     .notify {
-        color: $main-color;
-        font-size: $s-3;
-        margin-top: $s-5;
+        color: $page-text-color;
+        font-size: $page-text-size;
+        margin-top: $s40;
+        margin-bottom: $s40;
 
         a {
-            color: $sub-text-color;
+            color: $sub-bold-color;
             font-weight: bold;
         }
+    }
+    .error-notify {
+        height: $slg;
+        color: $error-text-color;
+        font-size: $error-text-size;
+        margin-bottom: $slg;
     }
 }
 

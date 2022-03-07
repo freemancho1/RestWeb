@@ -1,5 +1,5 @@
 <template>
-<q-layout view="hHh lpR fFf">
+<q-layout view="hHh lpR fFf" class="aip-page">
 
 	<div class="row justify-center">
 		<MainHeader/>
@@ -23,3 +23,11 @@ onBeforeMount(() => {
 	store.commit('initializeStore')
 })
 </script>
+
+<style lang="scss" scope>
+@import "~@/styles/main";
+
+.aip-page {
+	background-color: $app-bg-color;
+}
+</style>

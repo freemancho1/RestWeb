@@ -3,7 +3,7 @@ $s01: 1px;
 $sxs: 2px;
 $ssm: 5px;
 $smd: 10px;
-$sbt: 15px;  // size.body-text
+$spt: 15px;  // size.page-text
 $set: 12px;  // size.error-text
 $slg: 20px;
 $sxl: 30px;
@@ -14,9 +14,9 @@ $view-margin-top: $sxl;
 
 $view-title-size: $s50;
 $view-sub-title-size: $sxl;
-$body-title-size: $s40;
-$body-sub-title-size: $slg;
-$body-text-size: $sbt;
+$page-title-size: $s40;
+$page-sub-title-size: $slg;
+$page-text-size: $spt;
 $error-text-size: $set;
 
 $main-color: #ff6f01;
@@ -29,8 +29,10 @@ $back-color: #fef8e1;
 $back-blur-color: #fffde7;
 $back-bold-color: #fff2e0;
 
-$page-bg-color: $back-blur-color;
-$view-bg-color: $back-color;
+// $app-bg-color: $back-blur-color;
+// $view-bg-color: $back-color;
+$app-bg-color: white;
+$view-bg-color: white;
 
 $view-title-color: $main-bold-color;
 $view-sub-title-color: $main-color;
@@ -40,3 +42,10 @@ $page-text-color: $main-color;
 
 $error-text-color: $sub-color;
 $error-sub-text-color: $sub-blur-color;
+
+.primary {
+    color: $main-color !important;
+}
+.secondary {
+    color: $sub-color !important;
+}
